@@ -16,8 +16,10 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-    - name: run shell
-      run: ls
+    - name: make open-api.ini
+      run: |
+        touch ./open-api.ini
+        echo "${{ secrets.OPEN_API }}" > ./open-api.ini
     - name: Run main.py
       run: |
         python main.py
