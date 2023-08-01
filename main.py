@@ -63,10 +63,6 @@ if __name__ == '__main__':
             continue
         md.get_musical_detail_from_xml(musical=musical_dict, musical_id=musical_id, root=root)
 
-    '''
-    for key, val in musical_dict.items():
-        print(f'key = {key}, values = {val}')
-    '''
     print(len(musical_dict))
     db.db_insert(musical_dict)
 
