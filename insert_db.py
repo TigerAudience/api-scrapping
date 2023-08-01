@@ -1,5 +1,6 @@
 import pymysql
 import configparser
+import webhook
 
 
 def db_insert(musical_dict):
@@ -26,9 +27,11 @@ def db_insert(musical_dict):
                 "genre,musical_status,name,place_name,poster_url,running_time) " \
                 "VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
 
+        webhook.db_insert_result['total data count'] += 1
         try:
             cursor.execute(query, data)
             conn.commit()
+            webhook.db_insert_result['total success'] += 1
         except Exception as e:
             conn.rollback()
             print(f'예외가 발생했습니다. 예외 메세지 : {e}')
@@ -37,7 +40,9 @@ def db_insert(musical_dict):
                 'musical_info': musical
             }
             exception_list.append(exception_detail)
+            webhook.db_insert_result['total failure'] += 1
     conn.close()
+    webhook.db_insert_result['exception_list'] = exception_list
 
 
 def preprocessing(musical_dict):

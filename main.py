@@ -4,6 +4,7 @@ import xml.etree.ElementTree as ET
 import musical_list_api as ml
 import musical_detail_api as md
 import insert_db as db
+import webhook
 
 
 def build_query_param(param_dict):
@@ -68,6 +69,8 @@ if __name__ == '__main__':
     '''
     print(len(musical_dict))
     db.db_insert(musical_dict)
+
+    webhook.send_message_to_slack()
 
 
 
