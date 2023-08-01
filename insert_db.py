@@ -5,6 +5,7 @@ import configparser
 def db_insert(musical_dict):
 
     preprocessing(musical_dict)
+    exception_list = []
 
     config = configparser.ConfigParser()
     config.read(filenames='open-api.ini')
@@ -31,7 +32,11 @@ def db_insert(musical_dict):
         except Exception as e:
             conn.rollback()
             print(f'예외가 발생했습니다. 예외 메세지 : {e}')
-
+            exception_detail = {
+                'message': e,
+                'musical_info': musical
+            }
+            exception_list.append(exception_detail)
     conn.close()
 
 
