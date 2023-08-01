@@ -3,6 +3,7 @@ import configparser
 import xml.etree.ElementTree as ET
 import musical_list_api as ml
 import musical_detail_api as md
+import insert_db as db
 
 
 def build_query_param(param_dict):
@@ -27,7 +28,7 @@ if __name__ == '__main__':
 
     root_url = "http://www.kopis.or.kr/openApi/restful/pblprfr?service="
     stdate = 20230801
-    eddate = 20230802
+    eddate = 20230810
     cpage = 0
     rows = 100
     shcate = "GGGA"
@@ -41,7 +42,7 @@ if __name__ == '__main__':
 
     musical_dict = {}
 
-    # 공연 목록 api call 후 파싱, 최대 페이지는 100페이지로 제한
+    # 공연 목록 api call 후 파싱, 최대 페이지는 99페이지로 제한
     for i in range(1, 100):
         list_api_param_dict['cpage'] = i
         query = build_query_param(param_dict=list_api_param_dict)
@@ -50,8 +51,6 @@ if __name__ == '__main__':
         if root.find('db') is None:
             break
         ml.get_musical_from_xml(musical=musical_dict, root=root)
-        # 테스트용 break
-        # break
 
 
     root_url = "http://kopis.or.kr/openApi/restful/pblprfr/"
@@ -63,10 +62,12 @@ if __name__ == '__main__':
             continue
         md.get_musical_detail_from_xml(musical=musical_dict, musical_id=musical_id, root=root)
 
+    '''
     for key, val in musical_dict.items():
         print(f'key = {key}, values = {val}')
-
+    '''
     print(len(musical_dict))
+    db.db_insert(musical_dict)
 
 
 
