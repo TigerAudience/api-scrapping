@@ -1,7 +1,7 @@
 name: deploy
 on:
-  push:
-    branches: ['main']
+  schedule:
+    - cron: '0 3 * * *'
 jobs:
   SCRAPPING:
     runs-on: ubuntu-latest
