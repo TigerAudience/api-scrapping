@@ -5,16 +5,18 @@ db_insert_result = {
     'total data count': 0,
     'total success': 0,
     'total failure': 0,
-    'exception_list': []
+    'exception_list': [],
+    'deleted forever': 0
 }
 
 
 def text_builder():
     result_text = f"가져온 데이터의 총 개수는 {db_insert_result['total data count']}입니다.\n" \
                   f"데이터베이스에 입력된 데이터 개수 : {db_insert_result['total success']}\n" \
-                  f"데이터베이스 입력에 실패한 데이터 개수 : {db_insert_result['total failure']}\n"
+                  f"데이터베이스 입력에 실패한 데이터 개수 : {db_insert_result['total failure']}\n" \
+                  f"영구적으로 삭제한 데이터 개수 : {db_insert_result['deleted forever']}\n"
     exception_list = db_insert_result['exception_list']
-    max_cnt = 10
+    max_cnt = 3
     cnt = 0
     for exception_info in exception_list:
         if cnt >= max_cnt:

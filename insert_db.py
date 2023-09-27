@@ -19,7 +19,17 @@ def db_insert(musical_dict):
     )
     cursor = conn.cursor()
 
+    deleted_musical_dict = {
+    }
+    deleted_musical_query = "SELECT id from musical_deleted"
+    cursor.execute(deleted_musical_query)
+    deleted_musical_list = cursor.fetchall()
+    for deleted_musical in deleted_musical_list:
+        deleted_musical_dict[deleted_musical[0]] = 1
+    webhook.db_insert_result['deleted forever'] = len(deleted_musical_list)
     for key, musical in musical_dict.items():
+        if musical['musical_id'] in deleted_musical_dict:
+            continue
         data = [musical['musical_id'], musical['begin_date'], musical['end_date'], musical['casting'],
                 musical['genre'], musical['musical_status'], musical['name'], musical['place_name'],
                 musical['poster_url'], musical['running_time']]
