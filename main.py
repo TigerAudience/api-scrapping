@@ -63,7 +63,7 @@ if __name__ == '__main__':
     cnt = 0
     for musical_id, val in musical_dict.items():
         print(f'sleeping[detail]... [{cnt} th] [{musical_id} id]')
-        cnt+=1
+        cnt += 1
         time.sleep(0.1)
         child_url = root_url + musical_id + "?service="
         http_response_text = api_request(root_url=child_url, secret_key=secret_key, query="")
