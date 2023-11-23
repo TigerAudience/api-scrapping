@@ -20,7 +20,7 @@ def api_request(root_url, secret_key, query):
     url = root_url + secret_key + query
     payload = {}
     headers = {}
-    response = requests.request("GET", url, headers=headers, data=payload,verify=False)
+    response = requests.request("GET", url, headers=headers, data=payload)
     return response.text
 
 
