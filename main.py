@@ -17,6 +17,7 @@ def build_query_param(param_dict):
 
 
 def api_request(root_url, secret_key, query):
+    time.sleep(1)
     url = root_url + secret_key + query
     payload = {}
     headers = {}
