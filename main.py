@@ -42,7 +42,7 @@ if __name__ == '__main__':
     stdate = date_config.start_date_api_format
     eddate = date_config.end_date_api_format
     cpage = 0
-    rows = 1
+    rows = 10
     shcate = "GGGA"
     list_api_param_dict = {
         'stdate': stdate,
