@@ -79,7 +79,6 @@ if __name__ == '__main__':
         if root.find('db') is None:
             continue
         md.get_musical_detail_from_xml(musical=musical_dict, musical_id=musical_id, root=root)
-        break
     print(len(musical_dict))
     db.db_insert(musical_dict)
 
