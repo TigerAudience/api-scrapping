@@ -20,7 +20,7 @@ def api_request(root_url, secret_key, query):
     url = root_url + secret_key + query
     payload = {}
     headers = {}
-    response = requests.request("GET", url, headers=headers, data=payload, verify=False)
+    response = requests.request("GET", url, headers=headers, data=payload)
     res = ""
     try:
         # 응답 처리
@@ -37,7 +37,7 @@ if __name__ == '__main__':
     secret_key = config['DEFAULT']['SECRET_KEY']
 
     # 오늘 날짜 ~ 다음날정보 요청
-    root_url = "http://www.kopis.or.kr/openApi/restful/pblprfr?service="
+    root_url = "https://www.kopis.or.kr/openApi/restful/pblprfr?service="
     date_config.get_date()
     stdate = date_config.start_date_api_format
     eddate = date_config.end_date_api_format
