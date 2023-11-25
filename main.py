@@ -65,6 +65,7 @@ if __name__ == '__main__':
         if root.find('db') is None:
             break
         ml.get_musical_from_xml(musical=musical_dict, root=root)
+        break
 
     root_url = "http://kopis.or.kr/openApi/restful/pblprfr/"
     cnt = 0
@@ -78,6 +79,7 @@ if __name__ == '__main__':
         if root.find('db') is None:
             continue
         md.get_musical_detail_from_xml(musical=musical_dict, musical_id=musical_id, root=root)
+        break
 
     print(len(musical_dict))
     db.db_insert(musical_dict)
