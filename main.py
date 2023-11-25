@@ -42,7 +42,7 @@ if __name__ == '__main__':
     stdate = date_config.start_date_api_format
     eddate = date_config.end_date_api_format
     cpage = 0
-    rows = 100
+    rows = 1
     shcate = "GGGA"
     list_api_param_dict = {
         'stdate': stdate,
@@ -80,7 +80,6 @@ if __name__ == '__main__':
             continue
         md.get_musical_detail_from_xml(musical=musical_dict, musical_id=musical_id, root=root)
         break
-
     print(len(musical_dict))
     db.db_insert(musical_dict)
 
