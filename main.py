@@ -21,7 +21,14 @@ def api_request(root_url, secret_key, query):
     payload = {}
     headers = {}
     response = requests.request("GET", url, headers=headers, data=payload)
-    return response.text
+    res = ""
+    try:
+        # 응답 처리
+        res = response.text
+    finally:
+        # 응답 닫기
+        response.close()
+    return res
 
 
 if __name__ == '__main__':
