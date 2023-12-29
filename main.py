@@ -57,8 +57,6 @@ if __name__ == '__main__':
 
     # 공연 목록 api call 후 파싱, 최대 페이지는 99페이지로 제한
     for i in range(1, 100):
-        print(f'sleeping[list]... [{i} th]')
-        time.sleep(0.1)
         list_api_param_dict['cpage'] = i
         query = build_query_param(param_dict=list_api_param_dict)
         http_response_text = api_request(root_url=root_url, secret_key=secret_key, query=query)
@@ -66,14 +64,13 @@ if __name__ == '__main__':
         if root.find('db') is None:
             break
         ml.get_musical_from_xml(musical=musical_dict, root=root)
-        break
 
     root_url = "http://kopis.or.kr/openApi/restful/pblprfr/"
     cnt = 0
     for musical_id, val in musical_dict.items():
         print(f'sleeping[detail]... [{cnt} th] [{musical_id} id]')
         cnt += 1
-        time.sleep(0.1)
+        #time.sleep(0.1)
         child_url = root_url + musical_id + "?service="
         http_response_text = api_request(root_url=child_url, secret_key=secret_key, query="")
         root = ET.fromstring(http_response_text)
