@@ -32,6 +32,20 @@ def api_request(root_url, secret_key, query):
     return res
 
 
+def get_musical_list(list_api_param_dict, musical_dict, shcate):
+    list_api_param_dict['shcate'] = shcate
+    for i in range(1, 100):
+        print(f'page{i}')
+        list_api_param_dict['cpage'] = i
+        query = build_query_param(param_dict=list_api_param_dict)
+        http_response_text = api_request(root_url=root_url, secret_key=secret_key, query=query)
+        root = ET.fromstring(http_response_text)
+        if root.find('db') is None:
+            break
+        ml.get_musical_from_xml(musical=musical_dict, root=root)
+        break
+
+
 if __name__ == '__main__':
     config = configparser.ConfigParser()
     config.read(filenames='open-api.ini')
@@ -44,27 +58,21 @@ if __name__ == '__main__':
     eddate = date_config.end_date_api_format
     cpage = 0
     rows = 20
-    shcate = "GGGA"
+    default_shcate = "GGGA"
     list_api_param_dict = {
         'stdate': stdate,
         'eddate': eddate,
         'cpage': cpage,
         'rows': rows,
-        'shcate': shcate
+        'shcate': default_shcate
     }
 
     musical_dict = {}
 
     # 공연 목록 api call 후 파싱, 최대 페이지는 99페이지로 제한
-    for i in range(1, 100):
-        list_api_param_dict['cpage'] = i
-        query = build_query_param(param_dict=list_api_param_dict)
-        http_response_text = api_request(root_url=root_url, secret_key=secret_key, query=query)
-        root = ET.fromstring(http_response_text)
-        if root.find('db') is None:
-            break
-        ml.get_musical_from_xml(musical=musical_dict, root=root)
-
+    get_musical_list(list_api_param_dict=list_api_param_dict, musical_dict=musical_dict, shcate="GGGA")
+    get_musical_list(list_api_param_dict=list_api_param_dict, musical_dict=musical_dict, shcate="AAAA")
+    print(f'total count : {len(musical_dict.items())}')
     root_url = "http://kopis.or.kr/openApi/restful/pblprfr/"
     cnt = 0
     for musical_id, val in musical_dict.items():
