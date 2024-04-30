@@ -43,7 +43,6 @@ def get_musical_list(list_api_param_dict, musical_dict, shcate):
         if root.find('db') is None:
             break
         ml.get_musical_from_xml(musical=musical_dict, root=root)
-        break
 
 
 if __name__ == '__main__':
