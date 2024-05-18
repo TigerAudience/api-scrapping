@@ -31,4 +31,6 @@ def get_musical_from_xml(musical, root):
 
 
 def get_text(xml):
+    if xml is None:
+        return None
     return xml.text
